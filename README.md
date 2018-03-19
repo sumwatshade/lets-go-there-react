@@ -1,2 +1,1 @@
-# lets-go-there-react
-A Restaraunt finding app using React Native
+# Welcome to Let's Go There!
