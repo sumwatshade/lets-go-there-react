@@ -1,15 +1,11 @@
-import {GoogleApiWrapper} from 'google-maps-react'
 
-public class PlacesService {
+
+export default class PlacesService {
 
   constructor(props) {
-    super(props);
-    this.currentLocation = new props.google.maps.LatLng(-33.8665, 151.1956);
-
-    this.service = new props.google.maps.places.PlacesService();
+    this.currentLocation = [-33.8670522, 151.1957362];
+    this.apiKey = "AIzaSyBGfqJ7yoKu5S4Ha5Hifqijd5av5Yzk3w4";
     this.promise = null;
-    console.log(this.service)
-
     this.getNearbyPlaces = this.getNearbyPlaces.bind(this);
   }
 
@@ -17,20 +13,20 @@ public class PlacesService {
     const {location, radius, keyword, openNow} = params;
 
     const request = {
+      key: this.apiKey,
       location: location ? location : this.currentLocation,
-      radius: radius ? radius : '400',
-      keyword: keyword ? keyword : 'restaraunt',
+      radius: radius ? radius : '50000',
+      keyword: keyword ? keyword : '',
       openNow: openNow ? openNow : false
     }
 
-    this.service.nearbySearch(request, (results, status) => {
-      console.log(results);
-      console.log(status);
-    })
+    const url = this.buildUrl(request);
+    return fetch(url);
   }
 
+  buildUrl(params) {
+    const url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
+    const paramsUrl = Object.keys(params).map((param) => `${param}=${params[param]}`).join("&");
+    return url + paramsUrl
+  }
 }
-
-export default GoogleApiWrapper({
-  apiKey: (AIzaSyBGfqJ7yoKu5S4Ha5Hifqijd5av5Yzk3w4)
-})(PlacesService)

@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import PlacesService from '../places.service';
+import PlacesService from './services/places.service';
 
 export default class App extends React.Component {
   render() {
-    PlacesService.findNearby();
+    const placeService = new PlacesService();
     return (
       <View style={styles.container}>
         <Text>Open up App.js to start working on your app!</Text>
