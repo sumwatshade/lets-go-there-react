@@ -1,10 +1,9 @@
-
+import {API_KEY, DEFAULT_RADIUS} from "./config";
 
 export default class PlacesService {
 
   constructor(props) {
     this.currentLocation = [-33.8670522, 151.1957362];
-    this.apiKey = "AIzaSyBGfqJ7yoKu5S4Ha5Hifqijd5av5Yzk3w4";
     this.promise = null;
     this.getNearbyPlaces = this.getNearbyPlaces.bind(this);
   }
@@ -13,11 +12,11 @@ export default class PlacesService {
     const {location, radius, keyword, openNow} = params;
 
     const request = {
-      key: this.apiKey,
+      key: API_KEY,
       location: location ? location : this.currentLocation,
-      radius: radius ? radius : '50000',
+      radius: radius ? radius : DEFAULT_RADIUS,
       keyword: keyword ? keyword : '',
-      openNow: openNow ? openNow : false
+      openNow: openNow ? openNow : "false"
     }
 
     const url = this.buildUrl(request);
